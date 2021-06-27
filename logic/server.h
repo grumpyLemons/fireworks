@@ -6,10 +6,12 @@ namespace Logic{
     public:
         Entity(Server& server);
         ~Entity();
-        virtual void OnFrame(float dt)
+        virtual void OnFrame(float dt);
+    private:
+        Server& server;
     };
 
-    class Server{
+    class Server : Core::Server<Entity>{
     public:
         void OnFrameImpl(float dt){};
     };
