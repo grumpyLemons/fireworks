@@ -1,13 +1,13 @@
 #include "server.h"
 
-namespace Graphics {
+namespace Physics {
     Entity::Entity(Server &server)
-            : gServer(server) {
-        gServer.registerEntity(this);
+            : pServer(server) {
+        pServer.registerEntity(this);
     }
 
     Entity::~Entity() {
-        gServer.unregisterEntity(this);
+        pServer.unregisterEntity(this);
     }
 
     Server::Server() {}

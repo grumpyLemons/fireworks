@@ -1,25 +1,29 @@
 #pragma once
+
 #include "server.h"
 #include <vector>
 
-namespace Graphics{
+namespace Graphics {
     class Bullet;
 }
 
-namespace Physics{
+namespace Physics {
     class Bullet;
 }
 
-namespace Logic{
-    class Bullet : public Entity{
+namespace Logic {
+    class Bullet : public Entity {
     public:
-        Bullet(Server& lServer, Physics::Bullet* pB, Graphics::Bullet* gB);
+        Bullet(Server &lServer, Physics::Bullet *pB, Graphics::Bullet *gB);
+
         ~Bullet();
+
         void UpdateGraphics();
+
         void OnFrame(float dt) override;
 
     private:
-        Physics::Bullet* pBullet;
-        Graphics::Bullet* gBullet;
+        Physics::Bullet *pBullet;
+        Graphics::Bullet *gBullet;
     };
 }

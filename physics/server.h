@@ -1,18 +1,27 @@
+#pragma once
+
 #include "core/server.h"
 
-namespace Physics{
+namespace Physics {
     class Server;
-    class Entity{
+
+    class Entity {
     public:
-        Entity(Server& server);
+        Entity(Server &server);
+
         ~Entity();
+
         virtual void OnFrame(float dt);
-    private:
-        Server& server;
+    protected:
+        Server &pServer;
     };
 
-    class Server : Core::Server<Entity>{
+    class Server : public Core::Server {
     public:
-        void OnFrameImpl(float dt){};
+        Server();
+
+        ~Server();
+
+        void OnFrameImpl(float dt);
     };
 }

@@ -2,7 +2,8 @@
 
 namespace Graphics
 {
-    Bullet::Bullet(float x, float y){
+    Bullet::Bullet(Server& pServer, float x, float y)
+    : Entity(pServer){
         SetBulletPosition(x, y)
     }
     Bullet::~Bullet(){}

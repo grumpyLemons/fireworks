@@ -1,17 +1,22 @@
 #include <cstdlib>
 #include "bullet.h"
 namespace Physics{
-    Bullet::Bullet(Server &server) {}
+    Bullet::Bullet(Server &pServer)
+    : Entity(pServer){}
     void Bullet::ProcessBullet(float dt) {
         currentY += velocityY*dt;
         velocityY -= g*dt;
     }
     void Bullet::ProcessSplinter(float dt) {
-        for(Splinter* splinter: splinters)
+        isOnGround = true;
+        for(auto& splinter: splinters)
         {
-            splinter.simulate();
+            splinter.Simulate(dt);
+            if (splinter.Y > 0)
+            {
+                isOnGround = false;
+            }
         }
-        Bullet::isOnGround = true;
     }
     void Bullet::OnFrame(float dt) {
         if(currentY < endY)
