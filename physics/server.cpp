@@ -10,8 +10,10 @@ namespace Physics {
         pServer.unregisterEntity(this);
     }
 
-    Server::Server() {}
+    void Entity::OnFrame(float dt) {}
 
-    Server::~Server() {}
+    Server::Server() = default;
 
+    Server::~Server() = default;
+    void Server::onFrameImpl(float dt) {}
 }

@@ -1,8 +1,8 @@
 #include <cstdlib>
 #include "bullet.h"
+#include <utility>
+
 namespace Physics{
-    Bullet::Bullet(Server &pServer)
-    : Entity(pServer){}
     void Bullet::ProcessBullet(float dt) {
         currentY += velocityY*dt;
         velocityY -= g*dt;
@@ -12,7 +12,7 @@ namespace Physics{
         for(auto& splinter: splinters)
         {
             splinter.Simulate(dt);
-            if (splinter.Y > 0)
+            if (splinter.GetCoordinates().first > 0)
             {
                 isOnGround = false;
             }
@@ -34,9 +34,9 @@ namespace Physics{
         currentX += velocityX*dt;
         velocityY -= g*dt;
     }
-    bool Bullet::GetState() {return isExploded;}
-    std::pair<float, float> Bullet::GetCoordinates() { return (currentX, currentY);}
+    bool Bullet::GetState() const {return isExploded;}
+    std::pair<float, float> Bullet::GetCoordinates() { return std::make_pair(currentX, currentY);}
     std::vector<Splinter> Bullet::GetSplinters() { return splinters; }
-    std::pair<float, float> Splinter::GetCoordinates() { return (currentX, currentY);}
-    bool Bullet::GetSplintersState() { return isOnGround;}
+    std::pair<float, float> Splinter::GetCoordinates() { return std::make_pair(currentX, currentY);}
+    bool Bullet::GetSplintersState() const { return isOnGround;}
 }

@@ -4,13 +4,13 @@ namespace Graphics
 {
     Bullet::Bullet(Server& pServer, float x, float y)
     : Entity(pServer){
-        SetBulletPosition(x, y)
+        SetBulletPosition(x, y);
     }
-    Bullet::~Bullet(){}
+    Bullet::~Bullet() = default;
     void Bullet::OnFrame(float dt){
         if (isExploded)
         {
-            for (int i; i < splinters.size(); i++)
+            for (int i = 0; i < splinters.size(); i++)
             {
                 SetSplinterPos(i, currentX, currentY);
             }
@@ -22,7 +22,7 @@ namespace Graphics
             splinters[index].x = x;
             splinters[index].y = y;
         } else {
-            splinters.mplace_back(x, y);
+            splinters.emplace_back(x, y);
         }
     }
     void Bullet::SetExploded(bool value){

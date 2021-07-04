@@ -1,7 +1,5 @@
 #include "aimodule.h"
 
-virtual void OnFrame()
-{}
+void AiModule::OnFrame() {}
 
-virtual void OnRender()
-{}
+void AiModule::OnRender() {}

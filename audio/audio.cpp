@@ -1,4 +1,4 @@
 #include "audio.h"
 
-virtual void OnFrame()
+void Audio::OnFrame()
 {}

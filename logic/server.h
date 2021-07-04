@@ -16,7 +16,7 @@ namespace Logic {
         Server &lServer;
     };
 
-    class Server final : public Core::Server {
+    class Server final : public Core::Server<Entity> {
     public:
         Server();
 
@@ -25,7 +25,7 @@ namespace Logic {
         void RegisterEntityDelete(Entity *Entity);
 
     private:
-        virtual void OnFrameImpl(float dt) override {};
+        void onFrameImpl(float dt) override;
         std::vector<Entity *> deletedEntities;
     };
 }

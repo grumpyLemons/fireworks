@@ -17,13 +17,13 @@ namespace Graphics {
         Server &gServer;
     };
 
-    class Server : public Core::Server {
+    class Server : public Core::Server<Entity> {
     public:
         Server();
 
         ~Server();
 
-        void OnFrameImpl(float dt);
+        void onFrameImpl(float dt) override;
     };
 }
 

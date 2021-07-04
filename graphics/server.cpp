@@ -1,5 +1,5 @@
 #include "server.h"
-
+#include <SFML/Graphics.hpp>
 namespace Graphics {
     Entity::Entity(Server &server)
             : gServer(server) {
@@ -10,8 +10,10 @@ namespace Graphics {
         gServer.unregisterEntity(this);
     }
 
-    Server::Server() {}
+    Server::Server() = default;
 
-    Server::~Server() {}
+    Server::~Server() = default;
+    void Entity::OnFrame(float dt) {}
+    void Server::onFrameImpl(float dt){}
 
 }

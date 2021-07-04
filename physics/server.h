@@ -16,12 +16,12 @@ namespace Physics {
         Server &pServer;
     };
 
-    class Server : public Core::Server {
+    class Server : public Core::Server<Entity> {
     public:
         Server();
 
         ~Server();
 
-        void OnFrameImpl(float dt);
+        void onFrameImpl(float dt) override;
     };
 }

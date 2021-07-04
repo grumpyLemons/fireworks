@@ -7,23 +7,24 @@ namespace Logic {
     Bullet::Bullet(Server &lServer, Physics::Bullet *pB, Graphics::Bullet *gB)
             : Entity(lServer), pBullet(pB), gBullet(gB) {}
 
-    Bullet::~Bullet() {}
+    Bullet::~Bullet() = default;
 
     void Bullet::UpdateGraphics() {
         gBullet->SetExploded(pBullet->GetState());
-        if (!isExploded) {
-            gBullet->SetBulletPosition(pBullet->GetCoordinates().first(), pBullet->GetCoordinates().second())
-        } else {
-            unsigned i = 0;
+        if (!pBullet->GetState()) {
+            gBullet->SetBulletPosition(pBullet->GetCoordinates().first, pBullet->GetCoordinates().second);
+        }
+        else {
+            int i = 0;
             for (auto &&splinter : pBullet->GetSplinters()) {
-                gBullet->SetSplinterPos(i, splinter.GetCoordinates().first(), splinter.GetCoordinates().second());
+                gBullet->SetSplinterPos(i, splinter.GetCoordinates().first, splinter.GetCoordinates().second);
                 i++;
             }
         }
 
     }
 
-    void Bullet::onFrame(float dt) {
+    void Bullet::OnFrame(float dt) {
         if (pBullet->GetSplintersState())
             lServer.RegisterEntityDelete(this);
         else

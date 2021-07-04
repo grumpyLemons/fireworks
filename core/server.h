@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <algorithm>
 
 namespace Core {
     template<typename Entity>
@@ -9,15 +10,14 @@ namespace Core {
         void OnFrame(float dt) {
             for (Entity* entity: entities)
             {
-                entity.OnFrame(dt);
+                entity->OnFrame(dt);
             }
-            OnFrameImpl(dt);
         }
         void registerEntity(Entity *entity) {
-            entities.push_back(entity)
+            entities.push_back(entity);
         }
         void unregisterEntity(Entity *entity) {
-            auto iterator = entities.find(entity);
+            auto iterator = std::find(entities.begin(), entities.end(), entity);
             if(iterator != entities.end())
                 entities.erase(iterator);
         }

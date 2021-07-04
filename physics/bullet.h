@@ -1,14 +1,13 @@
 #include "server.h"
 #include <vector>
-#include <pair>
 
 namespace Physics{
-    float g = 9.8;
     class Splinter : public Entity{
     public:
         void Simulate(float dt);
         std::pair<float, float> GetCoordinates();
     private:
+        float g = 9.8;
         float velocityX, velocityY;
         float currentX, currentY;
     };
@@ -17,18 +16,19 @@ namespace Physics{
     public:
         Bullet(Server& server): Entity(server) {};
         ~Bullet() = default;
-        virtual void OnFrame(float dt);
+        void OnFrame(float dt) override;
         void ProcessBullet(float dt);
         void ProcessSplinter(float dt);
-        bool GetState();
-        bool GetSplintersState();
+        bool GetState() const;
+        bool GetSplintersState() const;
         std::pair<float,float> GetCoordinates();
         std::vector<Splinter> GetSplinters();
-        void Velocity();
+        float Velocity();
     private:
+        float g = 9.8;
         std::vector<Splinter> splinters;
         float initialX, initialY, velocityY;
-        float endY, currentY;
+        float endY, currentY, currentX;
         bool isExploded = false;
         bool isOnGround = false;
 

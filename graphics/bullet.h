@@ -5,11 +5,11 @@
 namespace Graphics {
     class Bullet : public Entity {
     public:
-        Bullet(float x, float y);
+        Bullet(Server& Server, float x, float y);
 
         ~Bullet();
 
-        void OnFrame();
+        void OnFrame(float dt);
 
         void SetSplinterPos(int index, float x, float y);
 
@@ -20,6 +20,7 @@ namespace Graphics {
     private:
         float currentX;
         float currentY;
+        bool isExploded = false;
         struct Position final {
             float x;
             float y;

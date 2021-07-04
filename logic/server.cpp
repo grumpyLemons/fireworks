@@ -1,5 +1,3 @@
-#pragma once
-
 #include "server.h"
 
 namespace Logic {
@@ -12,11 +10,19 @@ namespace Logic {
         lServer.unregisterEntity(this);
     }
 
-    Server::Server() {}
+    void Entity::OnFrame(float dt) {}
+    Server::Server() = default;
 
-    Server::~Server() {}
+    Server::~Server() = default;
 
-    Server::RegisterEntityDelete(Entity *Entity) {
-    deletedEntites.push_back(Entity);
-}
+    void Server::RegisterEntityDelete(Entity *Entity) {
+    deletedEntities.push_back(Entity);
+    }
+    void Server::onFrameImpl(float dt) {
+        for (auto* entity : deletedEntities)
+        {
+            delete entity;
+        }
+        deletedEntities.clear();
+    }
 }
