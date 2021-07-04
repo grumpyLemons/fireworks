@@ -1,29 +1,26 @@
+#pragma once
+
 #include "server.h"
 
-namespace Graphics{
-    class Bullet : public Entity{
+namespace Graphics {
+    class Bullet : public Entity {
     public:
-        void OnFrame();
-        void SetSplinterPos(int index, float x, float y)
-        {
-            if (splinters.size() > index){
-                splinters[index].x = x;
-                splinters[index].y = y;
-            }
-            else
-            {splinters.mplace_back(x, y);
-            }
+        Bullet(float x, float y);
 
-        };
-        void SetExploded(bool value) {isExploded = value; };
-        void SetBulletPosition(float x, float y) {
-            currentX = x;
-            currentY = y;}
+        ~Bullet();
+
+        void OnFrame();
+
+        void SetSplinterPos(int index, float x, float y);
+
+        void SetExploded(bool value);
+
+        void SetBulletPosition(float x, float y);
+
     private:
         float currentX;
         float currentY;
-        struct Position final
-        {
+        struct Position final {
             float x;
             float y;
         };

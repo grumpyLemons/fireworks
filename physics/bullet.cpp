@@ -11,13 +11,17 @@ namespace Physics{
         {
             splinter.simulate();
         }
+        Bullet::isOnGround = true;
     }
     void Bullet::OnFrame(float dt) {
-        while(currentY < endY)
+        if(currentY < endY)
         {
             ProcessBullet(dt);
         }
-        ProcessSplinter(dt);
+        else
+        {
+            ProcessSplinter(dt);
+        }
     }
     float Bullet::Velocity() {return velocityY;}
     void Splinter::Simulate(float dt) {
@@ -25,4 +29,9 @@ namespace Physics{
         currentX += velocityX*dt;
         velocityY -= g*dt;
     }
+    bool Bullet::GetState() {return isExploded;}
+    std::pair<float, float> Bullet::GetCoordinates() { return (currentX, currentY);}
+    std::vector<Splinter> Bullet::GetSplinters() { return splinters; }
+    std::pair<float, float> Splinter::GetCoordinates() { return (currentX, currentY);}
+    bool Bullet::GetSplintersState() { return isOnGround;}
 }

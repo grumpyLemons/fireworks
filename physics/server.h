@@ -1,17 +1,18 @@
-#include "../core/server.h"
+#include "core/server.h"
 
 namespace Physics{
     class Server;
-
     class Entity{
     public:
         Entity(Server& server);
         ~Entity();
-        virtual void OnFrame(float dt){};
+        virtual void OnFrame(float dt);
+    private:
+        Server& server;
     };
 
-    class Server : public core::Server{
+    class Server : Core::Server<Entity>{
     public:
-        virtual void OnFrameImpl(float dt) override {};
+        void OnFrameImpl(float dt){};
     };
 }

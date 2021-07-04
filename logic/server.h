@@ -1,18 +1,23 @@
-#include "../core/server.h"
+#pragma once
+#include "core/server.h"
 
 namespace Logic{
     class Server;
+
     class Entity{
     public:
         Entity(Server& server);
         ~Entity();
-        virtual void OnFrame(float dt);
-    private:
-        Server& server;
+        virtual void OnFrame(float dt){};
     };
 
-    class Server : Core::Server<Entity>{
+    class Server final : public core::Server{
     public:
-        void OnFrameImpl(float dt){};
+        Server();
+        ~Server();
+        void RegisterEntityDelete(Entity* Entity);
+    private:
+        virtual void OnFrameImpl(float dt) override {};
+        std::vector<Entity*> deletedEntities;
     };
 }
