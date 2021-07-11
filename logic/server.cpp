@@ -1,3 +1,5 @@
+#include <graphics/server.h>
+#include <physics/server.h>
 #include "server.h"
 
 namespace Logic {
@@ -11,7 +13,10 @@ namespace Logic {
     }
 
     void Entity::OnFrame(float dt) {}
-    Server::Server() = default;
+    Server::Server(Graphics::Server& server, Physics::Server& server1)
+    : graphics(server)
+    , physics(server1)
+    {}
 
     Server::~Server() = default;
 

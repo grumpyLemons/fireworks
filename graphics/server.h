@@ -1,6 +1,19 @@
 #pragma once
 
 #include "core/server.h"
+#include "input/iserver.h"
+#include "iview.h"
+
+#include <array>
+#include <memory>
+
+namespace sf
+{
+    class RenderWindow;
+    class Text;
+    class Font;
+    class Texture;
+}
 
 namespace Graphics {
     class Server;
@@ -17,13 +30,41 @@ namespace Graphics {
         Server &gServer;
     };
 
-    class Server : public Core::Server<Entity> {
-    public:
-        Server();
+class Server : public IView, public Core::Server<Entity>, public Input::IServer {
+public:
+    Server();
+    virtual ~Server() override;
 
-        ~Server();
+    virtual void BeforeRender() override;
+    virtual void Render(std::size_t activeTime) override;
 
-        void onFrameImpl(float dt) override;
-    };
+    virtual void Open() override;
+    virtual void Close() override;
+
+    virtual void SetParticlesCount(std::size_t count) override {particles = count;};
+
+    virtual bool IsPressed(Input::Button button) const override;
+
+    sf::RenderWindow& RenderWindow() const { return *window; }
+    sf::Texture& BulletTexture() const { return *bulletTexture; }
+
+    std::size_t GetHeight() const { return Height; }
+    void onFrameImpl(float dt) override;
+private:
+
+    void CreateContext();
+    void UpdateButtons();
+    std::unique_ptr<sf::RenderWindow> window;
+    std::unique_ptr<sf::Text> particlesCount;
+    std::unique_ptr<sf::Font> font;
+    std::unique_ptr<sf::Texture> bulletTexture;
+
+    std::size_t particles;
+
+    std::array<bool, unsigned(Input::Button::Count)> buttons;
+
+    static constexpr std::size_t Height{900};
+    static constexpr std::size_t Width{900};
+};
 }
 

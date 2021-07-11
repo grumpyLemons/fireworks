@@ -1,24 +1,18 @@
 #pragma once
 
-class Audio;
-class Input;
-class AiModule;
-class Graphics;
-class Logic;
-
+#include "gameinterface.h"
 
 class Application
 {
 public:
-    bool Activate();
-    void Run();
-    void Deactivate();
+    explicit Application(const GameInterface& interface);
+    ~Application();
+    void Open();
+    void Run() const;
 
 private:
-    Application(Audio*, Logic*, AiModule*, Graphics*, Input*);
-    Audio* m_audio;
-    Logic* m_logic;
-    AiModule* m_ai;
-    Graphics* m_graphics;
-    Input* m_input;
+
+    void HandleEvents() const;
+
+    GameInterface gameInterface;
 };

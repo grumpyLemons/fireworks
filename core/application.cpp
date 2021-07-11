@@ -1,18 +1,22 @@
-/*#include "application.h"
-#include "graphics/graphics.h"
-#include "logic/logic.h"
-#include "input/input.h"
-#include "audio/audio.h"
-#include "ai/aimodule.h"
+#include "application.h"
 
-Application::Application(Audio* audio, Logic* logic, AiModule* aimodule, Graphics* graphics, Input* input){
-    m_input = input;
-    m_graphics = graphics;
-    m_ai = aimodule;
-    m_logic = logic;
-    m_audio = audio;
+#include <chrono>
+
+#include "physics/server.h"
+#include "graphics/server.h"
+#include "logic/server.h"
+
+namespace
+{
+    constexpr std::size_t FrameTime{ 16 };
 }
-bool Application::Activate() {return false;}
-void Application::Run() {}
-void Application::Deactivate() {}
-*/
+
+Application::Application(const GameInterface &interface)
+: gameInterface(interface)
+{}
+Application::~Application() {}
+
+void Application::Open() {
+    gameInterface.gServer->Open();
+}
+void Application::Run() const {}
