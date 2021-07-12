@@ -18,7 +18,7 @@ namespace Physics {
 
     class Bullet : public Entity {
     public:
-        Bullet(Core::Vector3& position, Server& server, float inp_velocity = 1, float endHeight = 512);
+        Bullet(Core::Vector3& position, Server& server, float inp_velocity = 300, float endHeight = 512);
         ~Bullet() = default;
 
         void OnFrame(float dt) override;
@@ -36,7 +36,7 @@ namespace Physics {
     private:
         float g = 9.8;
         std::vector<Splinter> splinters;
-        float initialX, initialY, velocityY;
+        float velocityY;
         float endY, currentY, currentX;
         bool isExploded = false;
         bool isOnGround = false;

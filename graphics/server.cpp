@@ -1,5 +1,6 @@
 #include "server.h"
 #include <SFML/Graphics.hpp>
+#include <chrono>
 
 namespace Graphics {
     Entity::Entity(Server& server)
@@ -58,13 +59,24 @@ namespace Graphics {
     }
 
     void Server::Render(std::size_t activeTime) {
-        particlesCount->setString("Particles Count: " + std::to_string(particles));
-        window->draw(*particlesCount);
-
         window->display();
 
-        sf::Event Event{};
+        auto&& start = std::chrono::high_resolution_clock::now();
+        std::size_t elapsedTime{0};
+        while (elapsedTime < activeTime)
+        {
+            sf::Event event{};
+            if(window-> pollEvent(event)){
+                if(event.type == sf::Event::EventType::KeyPressed){
+                    if(event.key.code == sf::Keyboard::C){
+                        buttons[unsigned(Input::Button::P_C)] = true;
+                    }
+                }
+            }
 
+            auto&& end = std::chrono::high_resolution_clock::now();
+            elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+        }
     }
 
     void Entity::OnFrame(float dt) {}

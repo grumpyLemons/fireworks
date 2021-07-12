@@ -2,8 +2,8 @@
 
 namespace Core{
     struct Vector3{
-        float X{ 0.f };
-        float Y{ 0.f };
-        float Z{ 0.f };
+        double X{ 0.f };
+        double Y{ 0.f };
+        double Z{ 0.f };
     };
 }

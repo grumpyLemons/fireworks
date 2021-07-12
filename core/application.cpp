@@ -35,7 +35,9 @@ void Application::Run() const {
 
         auto&& end = std::chrono::high_resolution_clock::now();
         auto&& delta = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
-        gameInterface.gServer->Render(FrameTime - delta);
+        if (FrameTime > delta) {
+            gameInterface.gServer->Render(FrameTime - delta);
+        }
     }
     gameInterface.gServer->Close();
 }

@@ -5,13 +5,10 @@
 namespace Physics {
     Bullet::Bullet(Core::Vector3& position, Server& server, float inp_velocity, float endHeight)
         : Entity(server)
-        , initialY(position.Y)
-        , initialX(position.X)
+        , currentY(position.Y)
+        , currentX(position.X)
         , endY(endHeight)
-        , velocityY(inp_velocity) {
-        currentX = initialX;
-        currentY = initialX;
-    }
+        , velocityY(inp_velocity) {}
 
     void Bullet::ProcessBullet(float dt) {
         currentY += velocityY * dt;
