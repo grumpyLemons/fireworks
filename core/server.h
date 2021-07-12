@@ -13,10 +13,10 @@ namespace Core {
                 entity->OnFrame(dt);
             }
         }
-        void registerEntity(Entity *entity) {
+        void RegisterEntity(Entity *entity) {
             entities.push_back(entity);
         }
-        void unregisterEntity(Entity *entity) {
+        void UnregisterEntity(Entity *entity) {
             auto iterator = std::find(entities.begin(), entities.end(), entity);
             if(iterator != entities.end())
                 entities.erase(iterator);
@@ -24,7 +24,7 @@ namespace Core {
     private:
         std::vector<Entity*> entities;
     protected:
-        virtual void onFrameImpl(float dt) {}
+        virtual void OnFrameImpl(float dt) {}
     };
 }
 

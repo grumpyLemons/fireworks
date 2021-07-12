@@ -39,7 +39,7 @@ namespace Logic {
     private:
         Graphics::Server& graphics;
         Physics::Server& physics;
-        void onFrameImpl(float dt) override;
+        void OnFrameImpl(float dt) override;
         std::vector<Entity *> deletedEntities;
     };
 }

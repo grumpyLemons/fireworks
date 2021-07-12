@@ -12,9 +12,7 @@ namespace Graphics {
         void OnFrame(float dt);
 
         void SetSplinterPos(int index, float x, float y);
-
         void SetExploded(bool value);
-
         void SetBulletPosition(float x, float y);
 
     private:

@@ -3,11 +3,11 @@
 namespace Physics {
     Entity::Entity(Server &server)
             : pServer(server) {
-        pServer.registerEntity(this);
+        pServer.RegisterEntity(this);
     }
 
     Entity::~Entity() {
-        pServer.unregisterEntity(this);
+        pServer.UnregisterEntity(this);
     }
 
     void Entity::OnFrame(float dt) {}
@@ -15,5 +15,5 @@ namespace Physics {
     Server::Server() = default;
 
     Server::~Server() = default;
-    void Server::onFrameImpl(float dt) {}
+    void Server::OnFrameImpl(float dt) {}
 }

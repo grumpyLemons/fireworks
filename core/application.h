@@ -2,12 +2,14 @@
 
 #include "gameinterface.h"
 
-class Application
-{
+class Application {
 public:
     explicit Application(const GameInterface& interface);
+
     ~Application();
+
     void Open();
+
     void Run() const;
 
 private:

@@ -2,38 +2,37 @@
 #include <SFML/Graphics.hpp>
 
 namespace Graphics {
-    Entity::Entity(Server &server)
+    Entity::Entity(Server& server)
             : gServer(server) {
-        gServer.registerEntity(this);
+        gServer.RegisterEntity(this);
     }
 
     Entity::~Entity() {
-        gServer.unregisterEntity(this);
+        gServer.UnregisterEntity(this);
     }
 
-    Server::Server(){
+    Server::Server() {
         buttons.fill(false);
     }
 
-    Server::~Server()
-    {
+    Server::~Server() {
         Close();
     }
 
-    void Server::Open(){
+    void Server::Open() {
         CreateContext();
         Render(10);
     }
 
-    void Server::Close(){}
+    void Server::Close() {}
 
     bool Server::IsPressed(Input::Button button) const {
         return buttons[unsigned(button)];
     }
 
-    void Server::CreateContext()
-    {
-        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(Width, Height), "Fireworks test", sf::Style::Titlebar | sf::Style::Close);
+    void Server::CreateContext() {
+        window = std::make_unique<sf::RenderWindow>(sf::VideoMode(Width, Height), "Fireworks test",
+                                                    sf::Style::Titlebar | sf::Style::Close);
 
         window->setVerticalSyncEnabled(true);
 
@@ -54,21 +53,21 @@ namespace Graphics {
     }
 
     void Server::BeforeRender() {
-        window->clear(sf::Color(255,255,255));
+        window->clear(sf::Color(255, 255, 255));
         buttons.fill(false);
     }
 
-    void Server::Render(std::size_t activeTime){
+    void Server::Render(std::size_t activeTime) {
         particlesCount->setString("Particles Count: " + std::to_string(particles));
         window->draw(*particlesCount);
 
         window->display();
 
-        sf::Event event{};
+        sf::Event Event{};
 
     }
 
     void Entity::OnFrame(float dt) {}
-    void Server::onFrameImpl(float dt){}
+    void Server::OnFrameImpl(float dt) {}
 
 }

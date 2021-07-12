@@ -1,9 +1,7 @@
 #pragma once
 
-namespace Graphics
-{
-    class IView
-    {
+namespace Graphics {
+    class IView {
     public:
         virtual ~IView() = default;
 

@@ -5,11 +5,11 @@
 namespace Logic {
     Entity::Entity(Server &server)
             : lServer(server) {
-        lServer.registerEntity(this);
+        lServer.RegisterEntity(this);
     }
 
     Entity::~Entity() {
-        lServer.unregisterEntity(this);
+        lServer.UnregisterEntity(this);
     }
 
     void Entity::OnFrame(float dt) {}
@@ -23,7 +23,7 @@ namespace Logic {
     void Server::RegisterEntityDelete(Entity *Entity) {
     deletedEntities.push_back(Entity);
     }
-    void Server::onFrameImpl(float dt) {
+    void Server::OnFrameImpl(float dt) {
         for (auto* entity : deletedEntities)
         {
             delete entity;

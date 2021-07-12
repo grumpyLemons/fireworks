@@ -4,7 +4,7 @@
 #include "graphics/bullet.h"
 
 namespace Logic {
-    Bullet::Bullet(Server &lServer, Physics::Bullet *pB, Graphics::Bullet *gB)
+    Bullet::Bullet(Server& lServer, Physics::Bullet* pB, Graphics::Bullet* gB)
             : Entity(lServer), pBullet(pB), gBullet(gB) {}
 
     Bullet::~Bullet() = default;
@@ -16,7 +16,7 @@ namespace Logic {
         }
         else {
             int i = 0;
-            for (auto &&splinter : pBullet->GetSplinters()) {
+            for (auto&& splinter : pBullet->GetSplinters()) {
                 gBullet->SetSplinterPos(i, splinter.GetCoordinates().first, splinter.GetCoordinates().second);
                 i++;
             }

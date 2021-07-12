@@ -14,7 +14,7 @@ namespace Physics {
 namespace Logic {
     class Bullet : public Entity {
     public:
-        Bullet(Server &lServer, Physics::Bullet *pB, Graphics::Bullet *gB);
+        Bullet(Server& lServer, Physics::Bullet* pB, Graphics::Bullet* gB);
 
         ~Bullet();
 
@@ -23,7 +23,7 @@ namespace Logic {
         void OnFrame(float dt) override;
 
     private:
-        Physics::Bullet *pBullet;
-        Graphics::Bullet *gBullet;
+        Physics::Bullet* pBullet;
+        Graphics::Bullet* gBullet;
     };
 }

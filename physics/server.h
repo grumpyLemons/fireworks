@@ -22,6 +22,6 @@ namespace Physics {
 
         ~Server();
 
-        void onFrameImpl(float dt) override;
+        void OnFrameImpl(float dt) override;
     };
 }

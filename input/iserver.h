@@ -1,8 +1,7 @@
 #pragma once
 
 namespace Input {
-    enum class Button : uint8_t
-    {
+    enum class Button : uint8_t {
         P_C = 0,
         Count,
     };

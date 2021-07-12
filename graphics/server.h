@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "core/server.h"
 #include "input/iserver.h"
@@ -7,8 +7,7 @@
 #include <array>
 #include <memory>
 
-namespace sf
-{
+namespace sf {
     class RenderWindow;
     class Text;
     class Font;
@@ -20,51 +19,52 @@ namespace Graphics {
 
     class Entity {
     public:
-        Entity(Server &server);
+        explicit Entity(Server& server);
 
         ~Entity();
 
         virtual void OnFrame(float dt);
 
     protected:
-        Server &gServer;
+        Server& gServer;
     };
 
-class Server : public IView, public Core::Server<Entity>, public Input::IServer {
-public:
-    Server();
-    virtual ~Server() override;
+    class Server : public IView, public Core::Server<Entity>, public Input::IServer {
+    public:
+        Server();
+        ~Server() override;
 
-    virtual void BeforeRender() override;
-    virtual void Render(std::size_t activeTime) override;
+        void BeforeRender() override;
+        void Render(std::size_t activeTime) override;
 
-    virtual void Open() override;
-    virtual void Close() override;
+        void Open() override;
+        void Close() override;
 
-    virtual void SetParticlesCount(std::size_t count) override {particles = count;};
+        void SetParticlesCount(std::size_t count) override { particles = count; };
+        bool IsPressed(Input::Button button) const override;
 
-    virtual bool IsPressed(Input::Button button) const override;
+        sf::RenderWindow& RenderWindow() const { return *window; }
+        sf::Texture& BulletTexture() const { return *bulletTexture; }
+        std::size_t GetHeight() const { return Height; }
 
-    sf::RenderWindow& RenderWindow() const { return *window; }
-    sf::Texture& BulletTexture() const { return *bulletTexture; }
+        void OnFrameImpl(float dt) override;
 
-    std::size_t GetHeight() const { return Height; }
-    void onFrameImpl(float dt) override;
-private:
+    private:
 
-    void CreateContext();
-    void UpdateButtons();
-    std::unique_ptr<sf::RenderWindow> window;
-    std::unique_ptr<sf::Text> particlesCount;
-    std::unique_ptr<sf::Font> font;
-    std::unique_ptr<sf::Texture> bulletTexture;
+        void CreateContext();
+        void UpdateButtons();
 
-    std::size_t particles;
+        std::unique_ptr<sf::RenderWindow> window;
+        std::unique_ptr<sf::Text> particlesCount;
+        std::unique_ptr<sf::Font> font;
+        std::unique_ptr<sf::Texture> bulletTexture;
 
-    std::array<bool, unsigned(Input::Button::Count)> buttons;
+        std::size_t particles = 0;
 
-    static constexpr std::size_t Height{900};
-    static constexpr std::size_t Width{900};
-};
+        std::array<bool, unsigned(Input::Button::Count)> buttons;
+
+        static constexpr std::size_t Height{900};
+        static constexpr std::size_t Width{900};
+    };
 }
 
