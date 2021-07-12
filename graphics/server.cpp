@@ -44,7 +44,7 @@ namespace Graphics {
         particlesCount->setFillColor(sf::Color(0, 0, 0));
 
         bulletTexture = std::make_unique<sf::Texture>();
-        //bulletTexture->loadFromFile("../Resources/bullet.png");
+        bulletTexture->loadFromFile("../Resources/bullet.png");
 
     }
 
