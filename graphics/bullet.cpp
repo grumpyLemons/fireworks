@@ -2,8 +2,8 @@
 #
 
 namespace Graphics {
-    Bullet::Bullet(Server& pServer, float x, float y) : Entity(pServer) {
-        SetBulletPosition(x, y);
+    Bullet::Bullet(Core::Vector3 position, Server& pServer) : Entity(pServer) {
+        SetBulletPosition(position.X, position.Y);
     }
 
     Bullet::~Bullet() = default;

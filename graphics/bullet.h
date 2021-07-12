@@ -1,11 +1,12 @@
 #pragma once
 
 #include "server.h"
+#include "core/vector.h"
 
 namespace Graphics {
     class Bullet : public Entity {
     public:
-        Bullet(Server& Server, float x, float y);
+        Bullet(Core::Vector3 position, Server& Server);
 
         ~Bullet();
 

@@ -3,6 +3,16 @@
 #include <utility>
 
 namespace Physics {
+    Bullet::Bullet(Core::Vector3& position, Server& server, float inp_velocity, float endHeight)
+        : Entity(server)
+        , initialY(position.Y)
+        , initialX(position.X)
+        , endY(endHeight)
+        , velocityY(inp_velocity) {
+        currentX = initialX;
+        currentY = initialX;
+    }
+
     void Bullet::ProcessBullet(float dt) {
         currentY += velocityY * dt;
         velocityY -= g * dt;
@@ -21,13 +31,20 @@ namespace Physics {
     void Bullet::OnFrame(float dt) {
         if (currentY < endY) {
             ProcessBullet(dt);
-        }
-        else {
+        } else {
             ProcessSplinter(dt);
         }
     }
 
-    float Bullet::Velocity() { return velocityY; }
+    float Bullet::Velocity() const { return velocityY; }
+
+
+    Splinter::Splinter(Server& Server, Core::Vector3& position, std::pair<float, float> inp_velocity)
+            : Entity(Server)
+            , currentY(position.Y)
+            , currentX(position.X)
+            , velocityX(inp_velocity.first)
+            , velocityY(inp_velocity.second) {}
 
     void Splinter::Simulate(float dt) {
         currentY += velocityY * dt;
@@ -42,6 +59,7 @@ namespace Physics {
     std::vector<Splinter> Bullet::GetSplinters() { return splinters; }
 
     std::pair<float, float> Splinter::GetCoordinates() { return std::make_pair(currentX, currentY); }
+
 
     bool Bullet::GetSplintersState() const { return isOnGround; }
 }

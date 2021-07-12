@@ -10,7 +10,7 @@ public:
 
     void Open();
 
-    void Run() const;
+    [[noreturn]] void Run() const;
 
 private:
 
