@@ -1,17 +1,20 @@
 #include <cstdlib>
 #include "bullet.h"
 #include <utility>
+#include <cmath>
 
 namespace Physics {
     Bullet::Bullet(Core::Vector3& position, Server& server, float inp_velocity, float endHeight)
         : Entity(server)
-        , currentY(position.Y)
-        , currentX(position.X)
+        , coordinates(position)
         , endY(endHeight)
-        , velocityY(inp_velocity) {}
+        , velocityY(inp_velocity)
+        , l_server(server){}
+
+    Bullet::~Bullet() = default;
 
     void Bullet::ProcessBullet(float dt) {
-        currentY += velocityY * dt;
+        coordinates.Y += velocityY * dt;
         velocityY -= g * dt;
     }
 
@@ -26,9 +29,23 @@ namespace Physics {
     }
 
     void Bullet::OnFrame(float dt) {
-        if (currentY < endY) {
+        if (coordinates.Y < endY) {
             ProcessBullet(dt);
-        } else {
+        }
+        else if (!isExploded) {
+            isExploded = true;
+            for (std::size_t i{0}; i < 10 + (int)rand() % 10; ++i)
+            {
+                std::pair<float, float>  splinterVelocity;
+                splinterVelocity.first = velocityY - 2 * (double)rand() / RAND_MAX * velocityY;
+
+                const auto ySpeedMax = std::sqrt(velocityY * velocityY - splinterVelocity.first * splinterVelocity.first);
+                splinterVelocity.second = ySpeedMax - 2 * (double)rand() / RAND_MAX * ySpeedMax;
+
+                splinters.push_back(Physics::Splinter(l_server, GetCoordinates(), splinterVelocity));
+            }
+        }
+        else {
             ProcessSplinter(dt);
         }
     }
@@ -51,7 +68,9 @@ namespace Physics {
 
     bool Bullet::GetState() const { return isExploded; }
 
-    std::pair<float, float> Bullet::GetCoordinates() { return std::make_pair(currentX, currentY); }
+    Core::Vector3& Bullet::GetCoordinates() {
+        return coordinates;
+    }
 
     std::vector<Splinter> Bullet::GetSplinters() { return splinters; }
 

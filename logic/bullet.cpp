@@ -12,7 +12,7 @@ namespace Logic {
     void Bullet::UpdateGraphics() {
         gBullet->SetExploded(pBullet->GetState());
         if (!pBullet->GetState()) {
-            gBullet->SetBulletPosition(pBullet->GetCoordinates().first, pBullet->GetCoordinates().second);
+            gBullet->SetBulletPosition(pBullet->GetCoordinates().X, pBullet->GetCoordinates().Y);
         }
         else {
             int i = 0;

@@ -19,7 +19,7 @@ namespace Physics {
     class Bullet : public Entity {
     public:
         Bullet(Core::Vector3& position, Server& server, float inp_velocity = 300, float endHeight = 512);
-        ~Bullet() = default;
+        ~Bullet();
 
         void OnFrame(float dt) override;
         void ProcessBullet(float dt);
@@ -28,12 +28,14 @@ namespace Physics {
         bool GetState() const;
         bool GetSplintersState() const;
 
-        std::pair<float, float> GetCoordinates();
+        Core::Vector3& GetCoordinates();
         std::vector<Splinter> GetSplinters();
 
         float Velocity() const;
 
     private:
+        Core::Vector3 coordinates;
+        Server& l_server;
         float g = 9.8;
         std::vector<Splinter> splinters;
         float velocityY;
