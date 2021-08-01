@@ -17,7 +17,7 @@ namespace Logic {
         else {
             int i = 0;
             for (auto&& splinter : pBullet->GetSplinters()) {
-                gBullet->SetSplinterPos(i, splinter.GetCoordinates().first, splinter.GetCoordinates().second);
+                gBullet->SetSplinterPos(i, splinter.GetCoordinates().X, splinter.GetCoordinates().Y);
                 i++;
             }
         }

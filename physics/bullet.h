@@ -5,15 +5,17 @@
 namespace Physics {
     class Splinter : public Entity {
     public:
-        Splinter(Server& Server, Core::Vector3& position, std::pair<float, float> inp_velocity);
+        Splinter(Server& Server, const Core::Vector3& position, const std::pair<float, float>& inp_velocity, const Box& serverWorldBox);
         ~Splinter() = default;
         void Simulate(float dt);
-        std::pair<float, float> GetCoordinates();
+        const Core::Vector3& GetCoordinates() const;
 
     private:
+        bool IsOnGround() const;
+        Box worldBox;
         float g = 9.8;
         float velocityX, velocityY;
-        float currentX, currentY;
+        Core::Vector3 coordinates;
     };
 
     class Bullet : public Entity {
@@ -29,7 +31,7 @@ namespace Physics {
         bool GetState() const;
         bool GetSplintersState() const;
 
-        const Core::Vector3& GetCoordinates();
+        const Core::Vector3& GetCoordinates() const;
         std::vector<Splinter>& GetSplinters();
 
         float Velocity() const;

@@ -22,7 +22,7 @@ namespace Physics {
         isOnGround = true;
         for (auto& splinter: splinters) {
             splinter.Simulate(dt);
-            if (splinter.GetCoordinates().first > 0) {
+            if (splinter.GetCoordinates().X > 0) {
                 isOnGround = false;
             }
         }
@@ -37,7 +37,7 @@ namespace Physics {
                 const auto ySpeedMax = std::sqrt(velocityY * velocityY - splinterVelocity.first * splinterVelocity.first);
                 splinterVelocity.second = ySpeedMax - 2 * (double)rand() / RAND_MAX * ySpeedMax;
 
-                splinters.emplace_back(l_server, GetCoordinates(), splinterVelocity);
+                splinters.emplace_back(l_server, GetCoordinates(), splinterVelocity, pServer.GetWorldBox());
             }
     }
 
@@ -57,28 +57,39 @@ namespace Physics {
     float Bullet::Velocity() const { return velocityY; }
 
 
-    Splinter::Splinter(Server& Server, Core::Vector3& position, std::pair<float, float> inp_velocity)
+    Splinter::Splinter(Server& Server, const Core::Vector3& position, const std::pair<float, float>& inp_velocity, const Box& serverWorldBox)
             : Entity(Server)
-            , currentY(position.Y)
-            , currentX(position.X)
+            , coordinates(position)
             , velocityX(inp_velocity.first)
-            , velocityY(inp_velocity.second) {}
+            , velocityY(inp_velocity.second)
+            , worldBox(serverWorldBox) {}
+
+    bool Splinter::IsOnGround() const {
+        return coordinates.Y <= 0;
+    }
 
     void Splinter::Simulate(float dt) {
-        currentY += velocityY * dt;
-        currentX += velocityX * dt;
+        if (IsOnGround())
+            return;
+        if (coordinates.Y <= worldBox.Y1 || coordinates.Y >= worldBox.Y2)
+            velocityY *= -1;
+        if (coordinates.X >= worldBox.X2 || coordinates.X <= worldBox.X1)
+            velocityX *= -1;
+
+        coordinates.Y += velocityY * dt;
+        coordinates.X += velocityX * dt;
         velocityY -= g * dt;
     }
 
     bool Bullet::GetState() const { return isExploded; }
 
-    const Core::Vector3& Bullet::GetCoordinates() {
+    const Core::Vector3& Bullet::GetCoordinates() const {
         return coordinates;
     }
 
     std::vector<Splinter>& Bullet::GetSplinters() { return splinters; }
 
-    std::pair<float, float> Splinter::GetCoordinates() { return std::make_pair(currentX, currentY); }
+    const Core::Vector3& Splinter::GetCoordinates() const { return coordinates; }
 
 
     bool Bullet::GetSplintersState() const { return isOnGround; }
