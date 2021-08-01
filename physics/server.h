@@ -2,6 +2,8 @@
 
 #include "core/server.h"
 
+#include "core/concurrency/async_worker_pool.h"
+
 namespace Physics {
 
     struct Box final
@@ -27,6 +29,7 @@ namespace Physics {
     };
 
     class Server : public Core::Server<Entity> {
+        using ThreadPool = hope::concurrency::async_worker_pool<5>;
     public:
         Server();
 
@@ -34,7 +37,13 @@ namespace Physics {
 
         void OnFrameImpl(float dt) override;
         const Box& GetWorldBox() const { return worldBox; }
+
+        void AddJob(ThreadPool::Job&& task);
     private:
+
+        ThreadPool threadPool;
+
+
         constexpr static Box worldBox{ 0, 0, 800, 800 };
     };
 }

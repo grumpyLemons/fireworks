@@ -13,7 +13,8 @@ file(GLOB SAMPLE_HEADERS
         input/*.h
         logic/*.h
         physics/*.h
-        core/actions/*.h)
+        core/actions/*.h
+        core/concurrency/*.h)
 
 file(GLOB SAMPLE_SOURCES
         *.cpp
@@ -24,7 +25,9 @@ file(GLOB SAMPLE_SOURCES
         input/*.cpp
         logic/*.cpp
         physics/*.cpp
-        core/actions/*.cpp)
+        core/actions/*.cpp
+        core/concurrency/*.cpp)
 add_executable(Simple_game ${SAMPLE_HEADERS} ${SAMPLE_SOURCES})
 target_link_libraries(Simple_game sfml-graphics sfml-audio)
 target_include_directories(Simple_game PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")

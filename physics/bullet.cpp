@@ -14,8 +14,12 @@ namespace Physics {
     Bullet::~Bullet() = default;
 
     void Bullet::ProcessBullet(float dt) {
-        coordinates.Y += velocityY * dt;
-        velocityY -= g * dt;
+        if (coordinates.Y < endY) {
+            coordinates.Y += velocityY * dt;
+            velocityY -= g * dt;
+        }
+        else
+            Explosion();
     }
 
     void Bullet::ProcessSplinter(float dt) {
@@ -39,18 +43,15 @@ namespace Physics {
 
                 splinters.emplace_back(l_server, GetCoordinates(), splinterVelocity, pServer.GetWorldBox());
             }
+        isExploded = true;
     }
 
     void Bullet::OnFrame(float dt) {
-        if (coordinates.Y < endY) {
+        if (!isExploded) {
             ProcessBullet(dt);
         }
-        else if (!isExploded) {
-            isExploded = true;
-            Explosion();
-        }
         else {
-            ProcessSplinter(dt);
+            pServer.AddJob([dt, this] {ProcessSplinter(dt);});
         }
     }
 

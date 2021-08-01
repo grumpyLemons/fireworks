@@ -12,8 +12,17 @@ namespace Physics {
 
     void Entity::OnFrame(float dt) {}
 
-    Server::Server() = default;
+    Server::Server() {
+        threadPool.run();
+    }
 
-    Server::~Server() = default;
-    void Server::OnFrameImpl(float dt) {}
+    Server::~Server() {
+        threadPool.stop();
+    }
+    void Server::AddJob(ThreadPool::Job&& task) {
+        threadPool.add_job(std::move(task));
+    }
+    void Server::OnFrameImpl(float dt) {
+        threadPool.wait();
+    }
 }
