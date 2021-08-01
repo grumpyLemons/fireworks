@@ -29,8 +29,8 @@ namespace Physics {
         bool GetState() const;
         bool GetSplintersState() const;
 
-        Core::Vector3& GetCoordinates();
-        std::vector<Splinter> GetSplinters();
+        const Core::Vector3& GetCoordinates();
+        std::vector<Splinter>& GetSplinters();
 
         float Velocity() const;
 
@@ -40,7 +40,7 @@ namespace Physics {
         float g = 9.8;
         std::vector<Splinter> splinters;
         float velocityY;
-        float endY, currentY, currentX;
+        float endY;
         bool isExploded = false;
         bool isOnGround = false;
 

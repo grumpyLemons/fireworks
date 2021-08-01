@@ -72,11 +72,11 @@ namespace Physics {
 
     bool Bullet::GetState() const { return isExploded; }
 
-    Core::Vector3& Bullet::GetCoordinates() {
+    const Core::Vector3& Bullet::GetCoordinates() {
         return coordinates;
     }
 
-    std::vector<Splinter> Bullet::GetSplinters() { return splinters; }
+    std::vector<Splinter>& Bullet::GetSplinters() { return splinters; }
 
     std::pair<float, float> Splinter::GetCoordinates() { return std::make_pair(currentX, currentY); }
 
