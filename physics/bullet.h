@@ -24,6 +24,7 @@ namespace Physics {
         void OnFrame(float dt) override;
         void ProcessBullet(float dt);
         void ProcessSplinter(float dt);
+        void Explosion();
 
         bool GetState() const;
         bool GetSplintersState() const;

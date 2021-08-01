@@ -28,13 +28,8 @@ namespace Physics {
         }
     }
 
-    void Bullet::OnFrame(float dt) {
-        if (coordinates.Y < endY) {
-            ProcessBullet(dt);
-        }
-        else if (!isExploded) {
-            isExploded = true;
-            for (std::size_t i{0}; i < 10 + (int)rand() % 10; ++i)
+    void Bullet::Explosion() {
+        for (std::size_t i{0}; i < 10 + (int)rand() % 10; ++i)
             {
                 std::pair<float, float>  splinterVelocity;
                 splinterVelocity.first = velocityY - 2 * (double)rand() / RAND_MAX * velocityY;
@@ -42,8 +37,17 @@ namespace Physics {
                 const auto ySpeedMax = std::sqrt(velocityY * velocityY - splinterVelocity.first * splinterVelocity.first);
                 splinterVelocity.second = ySpeedMax - 2 * (double)rand() / RAND_MAX * ySpeedMax;
 
-                splinters.push_back(Physics::Splinter(l_server, GetCoordinates(), splinterVelocity));
+                splinters.emplace_back(l_server, GetCoordinates(), splinterVelocity);
             }
+    }
+
+    void Bullet::OnFrame(float dt) {
+        if (coordinates.Y < endY) {
+            ProcessBullet(dt);
+        }
+        else if (!isExploded) {
+            isExploded = true;
+            Explosion();
         }
         else {
             ProcessSplinter(dt);
