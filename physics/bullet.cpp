@@ -33,7 +33,7 @@ namespace Physics {
     }
 
     void Bullet::Explosion() {
-        for (std::size_t i{0}; i < 10 + (int)rand() % 10; ++i)
+        for (std::size_t i{0}; i < 100 + (int)rand() % 10; ++i)
             {
                 std::pair<float, float>  splinterVelocity;
                 splinterVelocity.first = velocityY - 2 * (double)rand() / RAND_MAX * velocityY;
