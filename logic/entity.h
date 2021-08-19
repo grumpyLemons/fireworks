@@ -4,11 +4,21 @@
 #include "core/vector.h"
 
 namespace Logic {
-    class TerrainEntity : public Entity{
+    enum class EntityType {
+        Pacman,
+        Ghost,
+        Orb,
+        SolidObject;
+    };
+
+    class TerrainEntity {
     public:
-        Core::Vector2 GetPosition();
+        TerrainEntity(EntityType eType);
+        EntityType GetType() const;
+        const Core::Vector2& GetPosition() const;
     private:
         Core::Vector2 coordinates;
+        EntityType type;
 
     };
 
