@@ -15,7 +15,7 @@ namespace Logic {
     class Field {
     public:
         Field(std::size_t x, std::size_t y);
-        Cell& GetCell(long x, long y);
+        Cell& GetCell(Core::Vector2 coordinates);
     private:
         std::vector<std::vector<Cell>> board;
 

@@ -6,4 +6,9 @@ namespace Core{
         double Y{ 0.f };
         double Z{ 0.f };
     };
+
+    struct Vector2{
+        long X{ 0 };
+        long Y{ 0 };
+    };
 }

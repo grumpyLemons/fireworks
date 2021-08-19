@@ -1,13 +1,14 @@
 #include "core/vector.h"
 #include <utility>
 #include "server.h"
+#include "core/vector.h"
 
 namespace Logic {
     class TerrainEntity : public Entity{
     public:
-        std::pair<long, long> GetPosition();
+        Core::Vector2 GetPosition();
     private:
-        std::pair<long, long> coordinates;
+        Core::Vector2 coordinates;
 
     };
 
