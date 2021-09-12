@@ -8,6 +8,8 @@ namespace Logic {
     public:
         Cell() = default;
         TerrainEntity* GetTerrainEntity() {return entity;}
+        TerrainEntity* GetEntity();
+        TerrainEntity SwapEntity(TerrainEntity* newValue);
     private:
         TerrainEntity* entity = nullptr;
     };
@@ -16,6 +18,9 @@ namespace Logic {
     public:
         Field(std::size_t x, std::size_t y);
         Cell& GetCell(Core::Vector2 coordinates);
+        TerrainEntity* GetEntity(Point position);
+        TerrainEntity* ConsumeEntity(Point position);
+
     private:
         std::vector<std::vector<Cell>> board;
 

@@ -8,7 +8,8 @@ namespace Logic {
         Pacman,
         Ghost,
         Orb,
-        SolidObject;
+        SolidObject,
+        Empty;
     };
 
     class TerrainEntity {
@@ -16,6 +17,7 @@ namespace Logic {
         TerrainEntity(EntityType eType);
         EntityType GetType() const;
         const Core::Vector2& GetPosition() const;
+        Point UpdatePosition(Point position);
     private:
         Core::Vector2 coordinates;
         EntityType type;

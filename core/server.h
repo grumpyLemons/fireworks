@@ -21,6 +21,7 @@ namespace Core {
             if(iterator != entities.end())
                 entities.erase(iterator);
         }
+        EntityType* GetEntity();
     private:
         std::vector<Entity*> entities;
     protected:
