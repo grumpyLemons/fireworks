@@ -8,7 +8,7 @@ namespace Logic::Utils {
 
     class mapLoader {
     public:
-        std::vector<std::vector<EntityType>> LoadMap(std::string fileName);
+        std::vector<std::vector<EntityType>> LoadMap(const std::string& fileName);
     };
 
 }

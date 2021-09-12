@@ -6,11 +6,11 @@
 
 namespace Logic {
     enum class EntityType {
+        Empty, //char 0 = 48
+        Orb,
         Pacman,
         Ghost,
-        Orb,
-        SolidObject,
-        Empty
+        SolidObject //char 4 = 52
     };
 
     class TerrainEntity {
