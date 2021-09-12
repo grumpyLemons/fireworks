@@ -14,7 +14,7 @@ namespace Logic {
         TerrainEntity* entity = nullptr;
     };
 
-    class Field {
+    class Field : Entity {
     public:
         Field(std::size_t x, std::size_t y);
         Cell& GetCell(Core::Vector2 coordinates);

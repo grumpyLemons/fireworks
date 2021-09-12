@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/server.h"
+#include "entity.h"
 
 namespace Physics
 {
@@ -35,7 +36,7 @@ namespace Logic {
         ~Server();
 
         void RegisterEntityDelete(Entity *Entity);
-
+        EntityType* GetEntity();
     private:
         Graphics::Server& graphics;
         Physics::Server& physics;
