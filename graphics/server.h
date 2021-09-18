@@ -22,10 +22,10 @@ namespace Graphics {
         explicit Entity(Server& server);
 
         ~Entity();
-
         virtual void OnFrame(float dt);
 
     protected:
+        unsigned X, Y;
         Server& gServer;
     };
 
